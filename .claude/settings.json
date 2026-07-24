@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash scripts/deploy.sh)",
+      "Bash(./scripts/deploy.sh)",
+      "Bash(curl -s https://*)"
+    ]
+  }
+}
