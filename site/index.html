@@ -1,22 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex">
-    <title>WebsiteAgent — connected</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; display: grid; place-items: center; min-height: 100vh; margin: 0; background: #0f172a; color: #e2e8f0; }
-        main { text-align: center; padding: 2rem; }
-        h1 { font-size: 1.6rem; margin-bottom: 0.5rem; }
-        p { color: #94a3b8; }
-        code { background: #1e293b; padding: 0.2em 0.5em; border-radius: 4px; }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fix Your Vibe Coded App | SortedLaunch</title>
+<meta name="description" content="SortedLaunch fixes vibe coded apps and builds AI-first SaaS MVPs. One senior engineer, 10+ years, 50+ MVPs launched. Fixed quotes, remote.">
+<link rel="canonical" href="https://sortedlaunch.com/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Fix Your Vibe Coded App | SortedLaunch">
+<meta property="og:description" content="SortedLaunch fixes vibe coded apps and builds AI-first SaaS MVPs. One senior engineer, 10+ years, 50+ MVPs launched. Fixed quotes, remote.">
+<meta property="og:url" content="https://sortedlaunch.com/index.html">
+<meta property="og:site_name" content="SortedLaunch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@manish_saraan">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b6b4f'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='700' fill='%23fff' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://sortedlaunch.com/#org",
+   "name": "SortedLaunch",
+   "url": "https://sortedlaunch.com/",
+   "description": "AI-accelerated web development practice run by one senior engineer. Fixes vibe coded apps, builds SaaS MVPs and AI features, and automates SaaS workflows for founders in the US, UK and Europe.",
+   "founder": {
+    "@id": "https://sortedlaunch.com/about.html#manish"
+   },
+   "areaServed": [
+    "US",
+    "GB",
+    "EU",
+    "CA",
+    "AU"
+   ],
+   "sameAs": [
+    "https://www.sortedlaunch.com/",
+    "https://github.com/manishsaraan",
+    "https://www.linkedin.com/in/manishsaraan/",
+    "https://x.com/manish_saraan"
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://sortedlaunch.com/#website",
+   "url": "https://sortedlaunch.com/",
+   "name": "SortedLaunch",
+   "publisher": {
+    "@id": "https://sortedlaunch.com/#org"
+   },
+   "inLanguage": "en"
+  },
+  {
+   "@type": "Person",
+   "@id": "https://sortedlaunch.com/about.html#manish",
+   "name": "Manish Saraan",
+   "jobTitle": "Founder & Principal Engineer",
+   "description": "Senior Full-Stack Architect and Fractional CTO with 10+ years of engineering experience and 50+ MVPs launched. Previously ran a 23-person agency, now works with founders 1-on-1.",
+   "url": "https://manishsaraan.com",
+   "worksFor": {
+    "@id": "https://sortedlaunch.com/#org"
+   },
+   "sameAs": [
+    "https://manishsaraan.com",
+    "https://github.com/manishsaraan",
+    "https://www.linkedin.com/in/manishsaraan/",
+    "https://x.com/manish_saraan"
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://sortedlaunch.com/index.html"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What is a vibe coded app?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A vibe coded app is software built mostly by prompting AI tools such as Cursor, Lovable, Bolt, v0 or Replit, usually by a founder without a full engineering background. The apps often work well as demos. Problems show up when real users, payments, and edge cases arrive and nobody on the team can read the generated code with confidence."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can you fix a vibe coded app without rebuilding it?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Usually, yes. Most AI-generated apps need targeted repair rather than a rewrite: fixing auth and data access rules, cleaning up the database schema, adding error handling, and setting up deployment and backups. I recommend a rewrite only when the generated code cannot be made safe or maintainable at a reasonable cost, and I say so in the scoping call."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How long does it take to fix a vibe coded app?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A scoping call takes 2 to 3 days and ends with a fixed quote and a launch date. Repair work on an existing app typically fits in a two-week pilot sprint, with a longer build of up to four weeks when new features are added. You see a demo every Friday."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How much does it cost to fix a vibe coded app?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Full projects start at $3,500 at a fixed price agreed before work starts. Ongoing work runs at $3,000 per month and you can pause or cancel anytime. The scoping call tells you which option fits before you commit any money."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do you work with clients outside India?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. SortedLaunch is remote and works mainly with founders in the US, UK and Europe. I overlap with US and European working hours for calls, and every week ends with a recorded demo you can watch on your own schedule."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://sortedlaunch.com/index.html",
+   "url": "https://sortedlaunch.com/index.html",
+   "name": "Fix Your Vibe Coded App | SortedLaunch",
+   "isPartOf": {
+    "@id": "https://sortedlaunch.com/#website"
+   },
+   "about": {
+    "@id": "https://sortedlaunch.com/#org"
+   },
+   "inLanguage": "en"
+  }
+ ]
+}
+</script>
 </head>
 <body>
-    <main>
-        <h1>WebsiteAgent is connected</h1>
-        <p>Deployed to <code>test.rrishijain.com</code> over SSH. Your site will replace this page.</p>
-    </main>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">Sorted<span>Launch</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul><li><a href="index.html" aria-current="page">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="blog/index.html">Blog</a></li><li><a class="btn" href="contact.html">Contact me</a></li></ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">SortedLaunch, by Manish Saraan</p>
+    <h1>Fix your vibe coded app and ship it with a senior engineer behind it</h1>
+    <div class="answer-box"><p>SortedLaunch is a remote, one-person engineering practice run by Manish Saraan from India for founders in the US, UK and Europe. I fix vibe coded apps built with Cursor, Lovable, Bolt or v0, build SaaS MVPs in 3 to 6 weeks, and add AI automation to running SaaS products, at a fixed price agreed before work starts.</p></div>
+    <p class="lede">You get one senior engineer with 10+ years of experience and 50+ MVPs launched, not a rotating agency team. Scoping takes 2 to 3 days and ends with a fixed quote and a launch date.</p>
+    <div class="btn-row">
+      <a class="btn" href="contact.html">Contact me about your app</a>
+      <a class="btn btn-ghost" href="blog/fix-vibe-coded-app.html">Read: how to fix a vibe coded app</a>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="fix-h">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="fix-h">What does it take to fix a vibe coded app?</h2>
+      <p>Most AI-generated apps need four things before they can take real customers: working authentication and row-level data rules, a database schema that will not corrupt under load, error handling around payments and third-party APIs, and a deployment with backups and logs. A rewrite is rarely the answer. Targeted repair on the existing codebase is faster and cheaper, and it keeps the parts that already work.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><h3>Security and data access</h3><p>Generated apps often ship with public database tables, API keys in the browser bundle, and no rate limits. I lock those down first, because this is where founders get hurt.</p></div>
+      <div class="card"><h3>Payments and billing</h3><p>Stripe webhooks that silently fail, subscriptions that never cancel, and trial logic that lives only in the frontend. I make billing match what the customer was promised.</p></div>
+      <div class="card"><h3>Reliability and deployment</h3><p>Proper environments, migrations, logging, monitoring, and backups. Afterwards you can ship changes without holding your breath.</p></div>
+      <div class="card"><h3>Handover you can read</h3><p>Every fix comes with a short written explanation of what was wrong, what changed, and how to avoid it next time. You keep control of your own product.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt" aria-labelledby="services-h">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="services-h">What I build</h2>
+      <p>Three kinds of work, each with a fixed scope and a delivery window agreed up front. Details and pricing are on the <a href="services.html">services page</a>.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="meta">Repair and harden</div><h3><a href="services.html#fix">Fix a vibe coded app</a></h3><p>Audit, repair, and stabilize an app built with AI tools so it can take real users and real payments. Typically a two-week pilot sprint.</p></div>
+      <div class="card"><div class="meta">2 to 4 weeks</div><h3><a href="services.html#ai">AI products and automation</a></h3><p>AI features inside your SaaS, or automation pipelines that remove manual work from your operations. The Blookery pipeline cut manual workload by 75%.</p></div>
+      <div class="card"><div class="meta">3 to 6 weeks</div><h3><a href="services.html#mvp">SaaS MVP development</a></h3><p>Web apps with auth, billing and dashboards, built to launch and to be extended later. Mobile apps in about 4 weeks and Chrome extensions in 2 to 3 weeks.</p></div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="proof-h">Why founders hire one engineer instead of an agency</h2>
+      <p>I ran a 23-person agency before SortedLaunch. The founders who got the best results were the ones who had a direct line to the person writing the code. So that is the whole model now: you talk to me, I write the code, and the numbers below are the track record.</p>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><strong>10+</strong><span>years of engineering experience</span></div>
+      <div class="stat"><strong>50+</strong><span>MVPs launched</span></div>
+      <div class="stat"><strong>$3M+</strong><span>in client funding secured</span></div>
+      <div class="stat"><strong>30+</strong><span>long-term retainers</span></div>
+    </div>
+    <h3>Recent work</h3>
+    <div class="grid">
+      <div class="card"><h3>BlinkIn, AI video platform</h3><p>Led the frontend architecture. The product secured EUR 2.5M in funding, and an optimized WebRTC implementation brought average call latency to 50ms. <a href="https://manishsaraan.com/case-studies/blinkin">Read the case study</a>.</p></div>
+      <div class="card"><h3>Blookery, surprise-trip engine</h3><p>Built an automation pipeline that cut manual workload by 75%. It has processed 500+ trips since launch. <a href="https://manishsaraan.com/case-studies/blookery">Read the case study</a>.</p></div>
+      <div class="card"><h3>LiveEasy, home valuation</h3><p>Rebuilt the valuation feature, which produced a 5% revenue boost. <a href="https://manishsaraan.com/case-studies/liveeasy">Read the case study</a>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt" aria-labelledby="process-h">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="process-h">How does a project with SortedLaunch run?</h2>
+      <p>Every project follows the same four stages, so you know the cost and the launch date before any code is written.</p>
+    </div>
+    <ol class="steps">
+      <li><strong>Scoping call, 2 to 3 days</strong><p>We go through your app or idea, I read the code if it exists, and you get a fixed quote and a launch date.</p></li>
+      <li><strong>Pilot sprint, 2 weeks</strong><p>A short first engagement with a concrete deliverable. For repair work this is often the whole job.</p></li>
+      <li><strong>Build, 4 weeks</strong><p>Full build with a demo every Friday. You see progress weekly and can redirect early.</p></li>
+      <li><strong>Launch plus 2 weeks of fixes</strong><p>Launch is included, and post-launch fixes are covered for two weeks after.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section aria-labelledby="posts-h">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="posts-h">Guides from the workbench</h2>
+      <p>Long-form articles on repairing AI-generated apps and automating SaaS operations, written from client projects. <a href="blog/index.html">All articles</a>.</p>
+    </div>
+    <ul class="post-list">
+      <li><div class="meta">Repair</div><h3><a href="blog/fix-vibe-coded-app.html">How to fix a vibe coded app that broke after launch</a></h3><p>A step-by-step repair order for apps built with Cursor, Lovable or Bolt, starting with the problems that lose data or money.</p></li>
+      <li><div class="meta">Security</div><h3><a href="blog/vibe-coded-app-security-checklist.html">Vibe coded app security checklist before you take real users</a></h3><p>Twelve checks that catch the most common holes in AI-generated apps, with the exact fix for each.</p></li>
+      <li><div class="meta">Automation</div><h3><a href="blog/automate-saas-workflows-with-ai.html">How to automate SaaS workflows with AI without breaking operations</a></h3><p>Which workflows to automate first, how to keep humans in the loop, and what the Blookery pipeline taught me.</p></li>
+      <li><div class="meta">Hiring</div><h3><a href="blog/choose-mvp-development-agency.html">How to choose an MVP development agency for your startup</a></h3><p>The questions that separate a studio that ships from one that bills, and when a single senior engineer is the better buy.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="faq" id="faq" aria-labelledby="faq-h">
+<div class="wrap"><h2 id="faq-h">Frequently asked questions</h2>
+<details><summary>What is a vibe coded app?</summary><p>A vibe coded app is software built mostly by prompting AI tools such as Cursor, Lovable, Bolt, v0 or Replit, usually by a founder without a full engineering background. The apps often work well as demos. Problems show up when real users, payments, and edge cases arrive and nobody on the team can read the generated code with confidence.</p></details>
+<details><summary>Can you fix a vibe coded app without rebuilding it?</summary><p>Usually, yes. Most AI-generated apps need targeted repair rather than a rewrite: fixing auth and data access rules, cleaning up the database schema, adding error handling, and setting up deployment and backups. I recommend a rewrite only when the generated code cannot be made safe or maintainable at a reasonable cost, and I say so in the scoping call.</p></details>
+<details><summary>How long does it take to fix a vibe coded app?</summary><p>A scoping call takes 2 to 3 days and ends with a fixed quote and a launch date. Repair work on an existing app typically fits in a two-week pilot sprint, with a longer build of up to four weeks when new features are added. You see a demo every Friday.</p></details>
+<details><summary>How much does it cost to fix a vibe coded app?</summary><p>Full projects start at $3,500 at a fixed price agreed before work starts. Ongoing work runs at $3,000 per month and you can pause or cancel anytime. The scoping call tells you which option fits before you commit any money.</p></details>
+<details><summary>Do you work with clients outside India?</summary><p>Yes. SortedLaunch is remote and works mainly with founders in the US, UK and Europe. I overlap with US and European working hours for calls, and every week ends with a recorded demo you can watch on your own schedule.</p></details>
+</div></section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Send me the app, or the idea</h2>
+    <p>Share a repo link, a deployed URL, or a one-paragraph description. I will tell you within a few days whether it needs repair, a rebuild, or nothing at all, and what it would cost.</p>
+    <a class="btn" href="contact.html">Contact me</a>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>SortedLaunch</h4>
+        <p>One senior engineer, not an agency. Remote from India, working with founders in the US, UK and Europe. Run by <a href="about.html">Manish Saraan</a>.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html#fix">Fix a vibe coded app</a></li>
+          <li><a href="services.html#ai">AI products and automation</a></li>
+          <li><a href="services.html#mvp">SaaS MVP development</a></li>
+          <li><a href="services.html#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul>
+          <li><a href="blog/fix-vibe-coded-app.html">How to fix a vibe coded app</a></li>
+          <li><a href="blog/vibe-coded-app-security-checklist.html">Vibe coded app security checklist</a></li>
+          <li><a href="blog/automate-saas-workflows-with-ai.html">Automate SaaS workflows with AI</a></li>
+          <li><a href="blog/choose-mvp-development-agency.html">Choosing an MVP development agency</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="https://manishsaraan.com" rel="me">manishsaraan.com</a></li>
+          <li><a href="https://github.com/manishsaraan" rel="me">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/manishsaraan/" rel="me">LinkedIn</a></li>
+          <li><a href="https://x.com/manish_saraan" rel="me">X</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal">&copy; 2026 SortedLaunch. Manish Saraan, Founder &amp; Principal Engineer. <a href="contact.html">Contact</a></p>
+  </div>
+</footer>
+<script src="js/main.js" defer></script>
 </body>
 </html>

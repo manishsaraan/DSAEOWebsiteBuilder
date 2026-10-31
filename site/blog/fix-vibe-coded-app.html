@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Fix a Vibe Coded App That Broke After Launch</title>
+<meta name="description" content="A step-by-step order for fixing a vibe coded app built with Cursor, Lovable or Bolt: backups, data access, Stripe, schema, deploys. By Manish Saraan.">
+<link rel="canonical" href="https://sortedlaunch.com/blog/fix-vibe-coded-app.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Fix a Vibe Coded App That Broke After Launch">
+<meta property="og:description" content="A step-by-step order for fixing a vibe coded app built with Cursor, Lovable or Bolt: backups, data access, Stripe, schema, deploys. By Manish Saraan.">
+<meta property="og:url" content="https://sortedlaunch.com/blog/fix-vibe-coded-app.html">
+<meta property="og:site_name" content="SortedLaunch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@manish_saraan">
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b6b4f'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='700' fill='%23fff' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+<meta property="article:published_time" content="2026-10-31">
+<meta property="article:author" content="https://manishsaraan.com">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://sortedlaunch.com/blog/fix-vibe-coded-app.html#article",
+   "headline": "How to fix a vibe coded app that broke after launch",
+   "name": "How to Fix a Vibe Coded App That Broke After Launch",
+   "description": "A step-by-step order for fixing a vibe coded app built with Cursor, Lovable or Bolt: backups, data access, Stripe, schema, deploys. By Manish Saraan.",
+   "url": "https://sortedlaunch.com/blog/fix-vibe-coded-app.html",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://sortedlaunch.com/blog/fix-vibe-coded-app.html"
+   },
+   "datePublished": "2026-10-31",
+   "dateModified": "2026-10-31",
+   "author": {
+    "@id": "https://sortedlaunch.com/about.html#manish"
+   },
+   "publisher": {
+    "@id": "https://sortedlaunch.com/#org"
+   },
+   "isPartOf": {
+    "@id": "https://sortedlaunch.com/blog/index.html#blog"
+   },
+   "inLanguage": "en",
+   "keywords": "fix vibe coded app",
+   "articleSection": "Repair",
+   "wordCount": 2719
+  },
+  {
+   "@type": "Organization",
+   "@id": "https://sortedlaunch.com/#org",
+   "name": "SortedLaunch",
+   "url": "https://sortedlaunch.com/",
+   "description": "AI-accelerated web development practice run by one senior engineer. Fixes vibe coded apps, builds SaaS MVPs and AI features, and automates SaaS workflows for founders in the US, UK and Europe.",
+   "founder": {
+    "@id": "https://sortedlaunch.com/about.html#manish"
+   },
+   "areaServed": [
+    "US",
+    "GB",
+    "EU",
+    "CA",
+    "AU"
+   ],
+   "sameAs": [
+    "https://www.sortedlaunch.com/",
+    "https://github.com/manishsaraan",
+    "https://www.linkedin.com/in/manishsaraan/",
+    "https://x.com/manish_saraan"
+   ]
+  },
+  {
+   "@type": "Person",
+   "@id": "https://sortedlaunch.com/about.html#manish",
+   "name": "Manish Saraan",
+   "jobTitle": "Founder & Principal Engineer",
+   "description": "Senior Full-Stack Architect and Fractional CTO with 10+ years of engineering experience and 50+ MVPs launched. Previously ran a 23-person agency, now works with founders 1-on-1.",
+   "url": "https://manishsaraan.com",
+   "worksFor": {
+    "@id": "https://sortedlaunch.com/#org"
+   },
+   "sameAs": [
+    "https://manishsaraan.com",
+    "https://github.com/manishsaraan",
+    "https://www.linkedin.com/in/manishsaraan/",
+    "https://x.com/manish_saraan"
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://sortedlaunch.com/index.html"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Blog",
+     "item": "https://sortedlaunch.com/blog/index.html"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "How to fix a vibe coded app that broke after launch",
+     "item": "https://sortedlaunch.com/blog/fix-vibe-coded-app.html"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Can I fix a vibe coded app myself without a developer?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "You can do the first three steps yourself: take a database backup, freeze deployments, and inventory what the app connects to. Fixing data access rules and payment logic needs someone who can read the code, because a mistake there locks users out or double-charges them. Many founders do the inventory themselves and then hand over a focused brief, which keeps the repair cost down."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Should I rewrite my vibe coded app from scratch?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Rarely. In the repairs I have done, most of the generated code was usable once the data layer, auth, and billing were fixed. A rewrite makes sense when the schema cannot represent your business, when the framework choice blocks a core feature, or when the code is so tangled that each fix breaks something else. The scoping call is where that decision gets made with the code open."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How long does it take to fix a vibe coded app?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "For a typical app with a few hundred users, the audit takes 2 to 3 days and the repair fits a two-week sprint. Apps with payments, multi-tenant data, or a mobile client can take the full four-week build. A fixed quote and date come out of the scoping call before any work starts."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What does it cost to fix a vibe coded app?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "SortedLaunch full projects start at $3,500 at a fixed price agreed before work starts. Ongoing support after the repair is $3,000 per month and can be paused or cancelled anytime. The price depends on what the audit finds, which is why the audit comes first."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which AI coding tools produce the most problems?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The tool matters less than how it was used. Lovable and Bolt apps tend to ship with overly permissive database rules because the tools favor getting a demo working. Cursor and Replit apps vary with the prompts the founder wrote. The repair steps in this guide apply to all of them."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sorted<span>Launch</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul><li><a href="../index.html">Home</a></li><li><a href="../services.html">Services</a></li><li><a href="../about.html">About</a></li><li><a href="../blog/index.html" aria-current="page">Blog</a></li><li><a class="btn" href="../contact.html">Contact me</a></li></ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<article>
+  <header class="article-header">
+    <div class="wrap">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="index.html">Blog</a></li><li>Repair</li></ol></nav>
+      <p class="eyebrow">Repair</p>
+      <h1>How to fix a vibe coded app that broke after launch</h1>
+      <p class="byline"><span>By <a href="../about.html" rel="author">Manish Saraan</a>, Founder &amp; Principal Engineer, SortedLaunch. 10+ years of engineering, 50+ MVPs launched.</span><span>Published <time datetime="2026-10-31">31 October 2026</time></span></p>
+    </div>
+  </header>
+  <div class="article-body wrap">
+    <div class="answer-box"><p>To fix a vibe coded app, work from the most expensive failure to the least: back up the database and freeze deploys, inventory every external call, lock down data access and auth, make Stripe the source of truth for billing, add migrations, add error handling, then set up staging and backups. Most apps need targeted repair, not a rewrite. The audit takes 2 to 3 days and the repair usually fits a two-week sprint.</p></div>
+    <nav class="toc" aria-label="In this article"><strong>In this article</strong><ol><li><a href="#why">Why vibe coded apps break after launch</a></li><li><a href="#stop">Step 1: Backup and freeze deploys</a></li><li><a href="#inventory">Step 2: Inventory what you have</a></li><li><a href="#auth">Step 3: Data access and authentication</a></li><li><a href="#payments">Step 4: Payments</a></li><li><a href="#schema">Step 5: Schema and migrations</a></li><li><a href="#errors">Step 6: Error handling and logging</a></li><li><a href="#deploy">Step 7: Environments, deploys, backups</a></li><li><a href="#rewrite">Step 8: Rewrite or keep</a></li><li><a href="#time">How long it takes</a></li><li><a href="#hire">When to hire someone</a></li><li><a href="#faq">FAQ</a></li></ol></nav>
+    
+<h2 id="why">Why do vibe coded apps break after launch?</h2>
+<p>Vibe coded apps break after launch because AI coding tools optimize for a working demo, and a demo has one user, no money, and no bad actors. The code that handled your own clicks in a test account was never asked to handle two users editing the same record, a Stripe webhook that arrives twice, or a request with a forged ID in the URL. Those cases arrive within days of real traffic.</p>
+<p>The pattern is consistent across the apps I have repaired. The frontend is usually fine. The problems sit in four places: data access rules, billing state, the database schema, and the absence of error handling around anything external. The tool wrote code that assumes every call succeeds, because during the build every call did.</p>
+<p>The order you fix things in matters more than the tools you use. Fix the wrong thing first and you will spend a week polishing a feature while the database leaks customer data. The sequence below is the one I follow on every repair, from the most expensive failure to the least.</p>
+
+<h2 id="stop">Step 1: Take a backup and freeze deployments</h2>
+<p>Before touching any code, take a full backup of the production database and store it somewhere that is not the same hosting account. On Supabase that is a dashboard export or <code>pg_dump</code> through the connection string. On a managed Postgres host it is a snapshot. On a hosted SQLite file it is a copy of the file. If the app stores uploads in a bucket, snapshot the bucket too.</p>
+<p>Then stop deploying. Most vibe coded apps deploy automatically on every push to the main branch, which is convenient during the build and dangerous during a repair. Turn off auto-deploy, or point production at a fixed commit. You want every change from here to go through a pull request that someone reads.</p>
+<p>If users are actively losing data or money right now, put up a maintenance page. A day of downtime is cheaper than a week of refunds. Founders resist this step, but no customer has ever churned over a maintenance page that said "back in a few hours", and several have churned over a duplicate charge.</p>
+
+<h2 id="inventory">Step 2: Find out what you actually have</h2>
+<p>You cannot repair a system you cannot describe. Spend half a day building an inventory before writing any fix. The list I produce in a scoping call covers:</p>
+<ul>
+  <li>Every external service the app talks to: database, auth provider, Stripe, email, file storage, AI model APIs, analytics. For each one, where the key lives and whether it has ever been rotated.</li>
+  <li>Every database table, who can read and write it, and which columns hold personal data or money.</li>
+  <li>Every route or API endpoint, and whether it checks who is calling it.</li>
+  <li>Every background job or scheduled task, and what happens if it runs twice.</li>
+  <li>The deployment path: which branch deploys, where environment variables live, and whether there is a staging environment at all.</li>
+</ul>
+<p>Most of this can be found with grep. Search the codebase for <code>process.env</code>, <code>fetch(</code>, <code>stripe.</code>, <code>supabase.from(</code>, and the name of your auth library. The AI tool scattered these calls across components because it had no reason to centralize them. Your inventory is also your first design document for the fix, because every place the same call appears is a place that will need the same correction.</p>
+<p>Write the inventory down. If you later hire someone to do the repair, this document cuts the scoping time in half and the quote with it.</p>
+
+<h2 id="auth">Step 3: Fix data access and authentication first</h2>
+<p>Data access is first because it is the failure that cannot be undone. A double charge can be refunded. A leaked customer list cannot be unleaked. Broken access control sits at the top of the <a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/" rel="noopener">OWASP Top 10</a>, and in AI-generated apps it is the single most common problem I find.</p>
+<p>The typical shape is this: the app uses Supabase or Firebase from the browser, the tables were created with row-level security disabled or with a policy that allows everything, and the "security" is the fact that the UI does not show other users' records. Anyone who opens the browser console and runs a query gets the whole table. Supabase documents <a href="https://supabase.com/docs/guides/database/postgres/row-level-security" rel="noopener">row-level security</a> clearly, but the generated code rarely enables it, because enabling it makes the demo fail until policies are written.</p>
+<p>The fix, in order:</p>
+<ol>
+  <li>Enable row-level security on every table that holds user data. Start with the table that holds the most sensitive data, not the easiest one.</li>
+  <li>Write a policy per table that ties rows to <code>auth.uid()</code> or to a membership table for team accounts. Test each policy from a second user account, not from the admin dashboard.</li>
+  <li>Move any operation that needs elevated permissions, such as sending email or charging a card, into a server-side function with the service key. The service key must never reach the browser bundle. Search the built JavaScript for it to be sure.</li>
+  <li>Check every API route for an auth check at the top. Generated route handlers often read a user ID from the request body and trust it. Replace that with the ID from the verified session.</li>
+  <li>Rotate every key that has ever been in a client bundle or a public repository, which in practice means all of them.</li>
+</ol>
+<p>On the repairs I have done, this step is usually the longest part of the audit, because every table was readable by anyone with the anon key and each one needed its own policy and its own test from a second account.</p>
+
+<h2 id="payments">Step 4: Make payments match what customers were promised</h2>
+<p>Billing is second because it is the failure customers notice fastest. The common defects in generated Stripe integrations are specific and repeat across apps:</p>
+<ul>
+  <li>The subscription status lives only in the frontend or in a column that is set at checkout and never updated. When a card fails or a customer cancels in the Stripe portal, the app keeps serving the paid plan.</li>
+  <li>The webhook endpoint exists but does not verify the Stripe signature, so anyone can post a fake "payment succeeded" event. Stripe's <a href="https://docs.stripe.com/webhooks" rel="noopener">webhook documentation</a> covers signature verification in a few lines, and the generated code skipped it.</li>
+  <li>Webhook handlers are not idempotent. Stripe retries events that do not return a 200 quickly, and a handler that credits an account on each receipt will credit it twice.</li>
+  <li>Trial logic is a date comparison in a React component. Changing the system clock extends the trial.</li>
+</ul>
+<p>The repair is to make Stripe the source of truth for subscription state, with your database as a cache that only webhooks update. Verify the signature on every event, store the event ID and skip any you have seen before, and gate paid features on the cached status checked server-side. Then reconcile: pull every subscription from Stripe, compare against the database, and fix the mismatches by hand. This reconciliation routinely turns up customers still on the paid plan after cancelling, and sometimes paying customers locked out by a bug in the cancellation path.</p>
+
+<h2 id="schema">Step 5: Repair the database schema and add migrations</h2>
+<p>Generated schemas tend to have a few shared problems: foreign keys that are missing, so orphaned records pile up; columns typed as text that should be numeric or timestamps; JSON blobs where a table was needed; and no migration history at all, because the AI tool ran raw SQL against the live database each time it changed something.</p>
+<p>Introduce a migrations tool before changing anything. Supabase has its CLI, Prisma and Drizzle have their own, and plain SQL files with a version table work for everything else. Capture the current schema as migration zero. From that point on, every schema change is a file in the repository that runs the same way in staging and production.</p>
+<p>Then fix the schema in small migrations, each reversible, each tested against a copy of the production backup from Step 1. Add the foreign keys with <code>ON DELETE</code> rules that match the business. Fix the column types, with a conversion that handles the bad data already in the column. Split the JSON blobs that the application queries into, because Postgres can index a column and cannot cheaply index a path inside a blob. Leave the JSON blobs that are only stored and returned.</p>
+<p>Resist the urge to redesign. The schema does not need to be what you would have built. It needs to stop corrupting data and to be changeable next month.</p>
+
+<h2 id="errors">Step 6: Add error handling and logging where the AI forgot</h2>
+<p>AI-generated code treats external calls as if they cannot fail. The email sends. The model responds. The file uploads. When one of these fails in production, the generated code either crashes the request or, worse, continues as if it succeeded and tells the user everything is fine.</p>
+<p>Go back to the inventory from Step 2 and visit every external call. For each one, decide what should happen on failure: retry, fall back, queue for later, or show the user an honest error. Then implement that, and log the failure with enough context to debug it. A log line that says "error" is useless. A log line that says "stripe.customers.create failed for user 4812 with card_declined" is a support ticket answered before it is filed.</p>
+<p>Set up a basic error tracker and a log drain. The free tiers of the common tools are enough for an app at this stage. For the first time you will be able to see errors you did not know you had, which is uncomfortable for a week and then becomes the way you run the product.</p>
+
+<h2 id="deploy">Step 7: Set up environments, deploys and backups</h2>
+<p>Most vibe coded apps have one environment, production, and deploy to it from the founder's laptop or on every push. Repairing them requires a staging environment, which means a second database, a second set of API keys in test mode, and a deploy path that goes laptop to staging to production.</p>
+<p>The minimum setup I leave behind on every repair:</p>
+<ul>
+  <li>A staging environment with its own database and test-mode keys for every external service.</li>
+  <li>Environment variables managed in the host, with no <code>.env</code> file in the repository. Check the git history for one and rotate anything in it.</li>
+  <li>Deploys from a protected main branch, after a pull request, with the migrations running automatically before the new code starts.</li>
+  <li>Daily automated database backups with a tested restore. "Tested" means someone has restored one into staging and checked the data.</li>
+  <li>A health check endpoint and an uptime monitor pointed at it.</li>
+</ul>
+<p>This step is boring, and it is the step that stops the next incident from being a disaster. It also makes the rest of the repair safer, because every fix from this point is tested on staging with a copy of real data before it reaches customers.</p>
+
+<h2 id="rewrite">Step 8: Decide what to rewrite and what to keep</h2>
+<p>After the first seven steps the app is safe to run. Now you can look at the code quality with a clear head rather than in a panic. Most of it should stay. Generated React components are verbose and repetitive, but they work, and rewriting them produces no customer-visible improvement.</p>
+<p>Rewrite the parts that fail one of two tests. The first test is whether a change in that area breaks something unrelated more often than not. That is the sign of logic that is duplicated across files, and it is cheaper to consolidate than to keep patching copies. The second test is whether the area blocks a feature you need in the next quarter. If the data model cannot represent teams and you need teams, the data model gets rebuilt now, while the app is small.</p>
+<p>Everything else goes on a list with a rough cost, and the list waits until the business asks for it. The goal of a repair is a product you can keep shipping, not a codebase you are proud of.</p>
+
+<h2 id="time">How long does fixing a vibe coded app take?</h2>
+<p>For an app with a few hundred users and a simple billing model, the audit takes 2 to 3 days and the repair fits in a two-week sprint. For apps with multi-tenant data, a mobile client, or a marketplace with payouts, the repair runs the full four-week build. On every SortedLaunch project the scoping call produces a fixed quote and a launch date before work starts, with a demo every Friday during the build and two weeks of post-launch fixes included. Pricing starts at $3,500 for a full project, with ongoing support at $3,000 per month that can be paused or cancelled. Details are on the <a href="../services.html#fix">services page</a>.</p>
+<p>If you are doing the work yourself, double those estimates. Not because the work is harder, but because you are also running the company, and each of these steps needs uninterrupted hours.</p>
+
+<h2 id="hire">When should you hire someone to fix a vibe coded app?</h2>
+<p>Hire when the app takes money, holds personal data, or has more users than you could email personally if something went wrong. Below that line, the steps above are a reasonable weekend project for a founder who can read code, and the inventory alone will teach you a great deal about what you built.</p>
+<p>Above that line, the cost of a mistake in Step 3 or Step 4 exceeds the cost of the repair. A locked-out customer base or a leaked table is a company-ending event for an early product. Someone who has done this many times will also know which of the generated patterns are harmless and which are time bombs, which saves the week you would otherwise spend fixing things that did not need fixing.</p>
+<p>Whichever route you take, do Step 1 today. The backup costs nothing and it is the only step that cannot be done after the fact.</p>
+
+    <div class="faq"><h2 id="faq">Frequently asked questions</h2><details><summary>Can I fix a vibe coded app myself without a developer?</summary><p>You can do the first three steps yourself: take a database backup, freeze deployments, and inventory what the app connects to. Fixing data access rules and payment logic needs someone who can read the code, because a mistake there locks users out or double-charges them. Many founders do the inventory themselves and then hand over a focused brief, which keeps the repair cost down.</p></details><details><summary>Should I rewrite my vibe coded app from scratch?</summary><p>Rarely. In the repairs I have done, most of the generated code was usable once the data layer, auth, and billing were fixed. A rewrite makes sense when the schema cannot represent your business, when the framework choice blocks a core feature, or when the code is so tangled that each fix breaks something else. The scoping call is where that decision gets made with the code open.</p></details><details><summary>How long does it take to fix a vibe coded app?</summary><p>For a typical app with a few hundred users, the audit takes 2 to 3 days and the repair fits a two-week sprint. Apps with payments, multi-tenant data, or a mobile client can take the full four-week build. A fixed quote and date come out of the scoping call before any work starts.</p></details><details><summary>What does it cost to fix a vibe coded app?</summary><p>SortedLaunch full projects start at $3,500 at a fixed price agreed before work starts. Ongoing support after the repair is $3,000 per month and can be paused or cancelled anytime. The price depends on what the audit finds, which is why the audit comes first.</p></details><details><summary>Which AI coding tools produce the most problems?</summary><p>The tool matters less than how it was used. Lovable and Bolt apps tend to ship with overly permissive database rules because the tools favor getting a demo working. Cursor and Replit apps vary with the prompts the founder wrote. The repair steps in this guide apply to all of them.</p></details></div>
+    <aside class="author-card" aria-label="About the author">
+  <div class="avatar" aria-hidden="true">MS</div>
+  <div>
+    <strong>Manish Saraan, Founder &amp; Principal Engineer, SortedLaunch</strong>
+    <p>Senior Full-Stack Architect and Fractional CTO with 10+ years of engineering experience and 50+ MVPs launched. Ran a 23-person agency before moving to 1-on-1 work with founders. Writes about shipping and repairing software at <a href="https://manishsaraan.com">manishsaraan.com</a>. <a href="../about.html">More about Manish</a>.</p>
+  </div>
+</aside>
+  </div>
+</article>
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Want this done rather than described?</h2>
+    <p>Send the repo or the URL. The scoping call takes 2 to 3 days and ends with a fixed quote and a launch date. Full projects from $3,500. <a href="../services.html" style="color:#fff">Services and pricing</a>.</p>
+    <a class="btn" href="../contact.html">Contact me</a>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>SortedLaunch</h4>
+        <p>One senior engineer, not an agency. Remote from India, working with founders in the US, UK and Europe. Run by <a href="../about.html">Manish Saraan</a>.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="../services.html#fix">Fix a vibe coded app</a></li>
+          <li><a href="../services.html#ai">AI products and automation</a></li>
+          <li><a href="../services.html#mvp">SaaS MVP development</a></li>
+          <li><a href="../services.html#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul>
+          <li><a href="../blog/fix-vibe-coded-app.html">How to fix a vibe coded app</a></li>
+          <li><a href="../blog/vibe-coded-app-security-checklist.html">Vibe coded app security checklist</a></li>
+          <li><a href="../blog/automate-saas-workflows-with-ai.html">Automate SaaS workflows with AI</a></li>
+          <li><a href="../blog/choose-mvp-development-agency.html">Choosing an MVP development agency</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="https://manishsaraan.com" rel="me">manishsaraan.com</a></li>
+          <li><a href="https://github.com/manishsaraan" rel="me">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/manishsaraan/" rel="me">LinkedIn</a></li>
+          <li><a href="https://x.com/manish_saraan" rel="me">X</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal">&copy; 2026 SortedLaunch. Manish Saraan, Founder &amp; Principal Engineer. <a href="../contact.html">Contact</a></p>
+  </div>
+</footer>
+<script src="../js/main.js" defer></script>
+</body>
+</html>

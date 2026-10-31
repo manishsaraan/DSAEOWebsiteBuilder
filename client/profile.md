@@ -6,7 +6,7 @@
 - Location / service area: Remote. Based in India, serves Western clients (US, UK, EU).
 - Ideal customer: A founder running an MVP or an existing SaaS who wants to automate operations with AI, or who built an app with AI coding tools and now needs it fixed, hardened or shipped.
 - Primary conversion action: Contact me (contact form / email). Later: small giveaways to capture emails.
-- Contact details for the site (phone, WhatsApp, email, address): Not yet provided. Add before build.
+- Contact details for the site (phone, WhatsApp, email, address): Email, phone and WhatsApp not yet provided. Public profiles found via search: GitHub https://github.com/manishsaraan, LinkedIn https://www.linkedin.com/in/manishsaraan/, X https://x.com/manish_saraan, personal site https://manishsaraan.com. Site canonical domain assumed https://sortedlaunch.com until .env is shared.
 
 ## Keywords
 - Money keyword (primary): fix vibe coded app

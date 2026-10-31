@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sortedlaunch.com/sitemap.xml

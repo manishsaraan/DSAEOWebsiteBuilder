@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vibe Coded App Security Checklist: 12 Checks Before Launch</title>
+<meta name="description" content="A vibe coded app security checklist from real repair audits: row-level security, exposed keys, Stripe webhooks, rate limits, with the fix for each.">
+<link rel="canonical" href="https://sortedlaunch.com/blog/vibe-coded-app-security-checklist.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vibe Coded App Security Checklist: 12 Checks Before Launch">
+<meta property="og:description" content="A vibe coded app security checklist from real repair audits: row-level security, exposed keys, Stripe webhooks, rate limits, with the fix for each.">
+<meta property="og:url" content="https://sortedlaunch.com/blog/vibe-coded-app-security-checklist.html">
+<meta property="og:site_name" content="SortedLaunch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@manish_saraan">
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b6b4f'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='700' fill='%23fff' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+<meta property="article:published_time" content="2026-10-31">
+<meta property="article:author" content="https://manishsaraan.com">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://sortedlaunch.com/blog/vibe-coded-app-security-checklist.html#article",
+   "headline": "Vibe coded app security checklist before you take real users",
+   "name": "Vibe Coded App Security Checklist: 12 Checks Before Launch",
+   "description": "A vibe coded app security checklist from real repair audits: row-level security, exposed keys, Stripe webhooks, rate limits, with the fix for each.",
+   "url": "https://sortedlaunch.com/blog/vibe-coded-app-security-checklist.html",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://sortedlaunch.com/blog/vibe-coded-app-security-checklist.html"
+   },
+   "datePublished": "2026-10-31",
+   "dateModified": "2026-10-31",
+   "author": {
+    "@id": "https://sortedlaunch.com/about.html#manish"
+   },
+   "publisher": {
+    "@id": "https://sortedlaunch.com/#org"
+   },
+   "isPartOf": {
+    "@id": "https://sortedlaunch.com/blog/index.html#blog"
+   },
+   "inLanguage": "en",
+   "keywords": "vibe coded app security",
+   "articleSection": "Security",
+   "wordCount": 2527
+  },
+  {
+   "@type": "Organization",
+   "@id": "https://sortedlaunch.com/#org",
+   "name": "SortedLaunch",
+   "url": "https://sortedlaunch.com/",
+   "description": "AI-accelerated web development practice run by one senior engineer. Fixes vibe coded apps, builds SaaS MVPs and AI features, and automates SaaS workflows for founders in the US, UK and Europe.",
+   "founder": {
+    "@id": "https://sortedlaunch.com/about.html#manish"
+   },
+   "areaServed": [
+    "US",
+    "GB",
+    "EU",
+    "CA",
+    "AU"
+   ],
+   "sameAs": [
+    "https://www.sortedlaunch.com/",
+    "https://github.com/manishsaraan",
+    "https://www.linkedin.com/in/manishsaraan/",
+    "https://x.com/manish_saraan"
+   ]
+  },
+  {
+   "@type": "Person",
+   "@id": "https://sortedlaunch.com/about.html#manish",
+   "name": "Manish Saraan",
+   "jobTitle": "Founder & Principal Engineer",
+   "description": "Senior Full-Stack Architect and Fractional CTO with 10+ years of engineering experience and 50+ MVPs launched. Previously ran a 23-person agency, now works with founders 1-on-1.",
+   "url": "https://manishsaraan.com",
+   "worksFor": {
+    "@id": "https://sortedlaunch.com/#org"
+   },
+   "sameAs": [
+    "https://manishsaraan.com",
+    "https://github.com/manishsaraan",
+    "https://www.linkedin.com/in/manishsaraan/",
+    "https://x.com/manish_saraan"
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://sortedlaunch.com/index.html"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Blog",
+     "item": "https://sortedlaunch.com/blog/index.html"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Vibe coded app security checklist before you take real users",
+     "item": "https://sortedlaunch.com/blog/vibe-coded-app-security-checklist.html"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Is a vibe coded app less secure than one written by hand?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not inherently. The defects in AI-generated apps are the same ones that appear in rushed hand-written apps: missing access rules, exposed keys, unverified webhooks. The difference is that the founder often cannot read the code well enough to notice them. This checklist exists so you can check for the common ones without reading every file."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I need a penetration test before launch?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not for a first launch with a small user base. Work through this checklist first, because a paid test will report the same twelve problems and charge you for the privilege. A penetration test becomes worthwhile once you handle payments at volume, store health or financial data, or sell to companies whose procurement asks for one."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I know if my API keys are exposed in the browser?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Open the deployed site, view the page source and the JavaScript bundles, and search for the first few characters of each key. In Next.js, any variable prefixed NEXT_PUBLIC_ is shipped to the browser. In Vite, anything prefixed VITE_ is. Treat every key found that way as compromised and rotate it."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which checks matter most if I only have a day?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Row-level security on every table, no secret keys in the client bundle, and Stripe webhook signature verification. Those three cover the failures that leak data or lose money. The rest of the list can follow in the next week."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can SortedLaunch run this checklist for me?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. The security audit is part of the scoping call for any repair project, which takes 2 to 3 days and ends with a fixed quote. Most fixes from this list fit in a two-week sprint. Details are on the services page."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sorted<span>Launch</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul><li><a href="../index.html">Home</a></li><li><a href="../services.html">Services</a></li><li><a href="../about.html">About</a></li><li><a href="../blog/index.html" aria-current="page">Blog</a></li><li><a class="btn" href="../contact.html">Contact me</a></li></ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<article>
+  <header class="article-header">
+    <div class="wrap">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="index.html">Blog</a></li><li>Security</li></ol></nav>
+      <p class="eyebrow">Security</p>
+      <h1>Vibe coded app security checklist before you take real users</h1>
+      <p class="byline"><span>By <a href="../about.html" rel="author">Manish Saraan</a>, Founder &amp; Principal Engineer, SortedLaunch. 10+ years of engineering, 50+ MVPs launched.</span><span>Published <time datetime="2026-10-31">31 October 2026</time></span></p>
+    </div>
+  </header>
+  <div class="article-body wrap">
+    <div class="answer-box"><p>A vibe coded app security checklist should start with the three failures that leak data or money: row-level security on every table, no secret keys in the browser bundle or git history, and Stripe webhook signature verification. The remaining nine checks cover route authorization, admin access, server-side validation, rate limits, uploads, passwords, headers, prompt injection, and logging. Each takes under an hour to verify.</p></div>
+    <nav class="toc" aria-label="In this article"><strong>In this article</strong><ol><li><a href="#why">Why a separate checklist</a></li><li><a href="#rls">1. Row-level security</a></li><li><a href="#secrets">2. Secrets in the bundle</a></li><li><a href="#webhooks">3. Stripe webhook signatures</a></li><li><a href="#authz">4. Route authorization</a></li><li><a href="#admin">5. Admin access</a></li><li><a href="#validation">6. Server-side validation</a></li><li><a href="#ratelimit">7. Rate limits</a></li><li><a href="#uploads">8. File uploads</a></li><li><a href="#passwords">9. Passwords and sessions</a></li><li><a href="#headers">10. Headers and CORS</a></li><li><a href="#llm">11. Prompt injection</a></li><li><a href="#logging">12. Logging and alerts</a></li><li><a href="#order">Order of work</a></li><li><a href="#faq">FAQ</a></li></ol></nav>
+    
+<h2 id="why">Why does a vibe coded app need its own security checklist?</h2>
+<p>Standard security guidance assumes a developer wrote the code and understands it. A vibe coded app, built by prompting Cursor, Lovable, Bolt, v0 or Replit, has a different failure profile. The founder knows what the app does but not how, the AI tool favored a working demo over safe defaults, and nobody has read the whole codebase. The problems are predictable, and that makes them checkable.</p>
+<p>This checklist comes from the audits I run at the start of every repair project. The twelve items are ordered by how often I find them and how much damage they do. Each one states what to look for, how to check it in under an hour, and what the fix is. The first three are the ones that leak customer data or money, so if you only do part of this list, do those.</p>
+<p>For a broader reference, the <a href="https://owasp.org/Top10/" rel="noopener">OWASP Top 10</a> describes the categories these checks fall into, and the <a href="https://owasp.org/www-project-application-security-verification-standard/" rel="noopener">OWASP Application Security Verification Standard</a> is the longer list you graduate to once this one is done.</p>
+
+<h2 id="rls">1. Is row-level security enabled on every table?</h2>
+<p>This is the defect I find most often, and the one with the worst consequences. Apps that use Supabase or a similar backend-as-a-service query the database directly from the browser. The only thing stopping one user from reading another user's rows is a policy on the table. Generated apps frequently ship with policies disabled, or with a policy that allows all operations to anyone with the public key, because that is what made the demo work.</p>
+<p><strong>How to check:</strong> In the Supabase dashboard, open each table and look at the RLS status. For a faster check, sign in as a test user, open the browser console, and query a table for rows that belong to a different user. If rows come back, the table is open.</p>
+<p><strong>The fix:</strong> Enable RLS on every table that holds user data, then write a policy per table that compares the row's owner column to <code>auth.uid()</code>, or joins through a membership table for team accounts. Supabase's <a href="https://supabase.com/docs/guides/database/postgres/row-level-security" rel="noopener">row-level security guide</a> has the patterns. Test every policy from a second account. The admin dashboard bypasses RLS, so testing there proves nothing.</p>
+
+<h2 id="secrets">2. Are any secret keys in the client bundle or the git history?</h2>
+<p>AI tools put keys where the code that needs them lives. If the code that calls Stripe or OpenAI runs in a React component, the key is in the browser, and anyone can read it from the network tab or the bundled JavaScript. The same tools also commit <code>.env</code> files, because they were never told not to.</p>
+<p><strong>How to check:</strong> Search the built JavaScript on the deployed site for the first characters of each key: <code>sk_live</code>, <code>sk-</code>, <code>service_role</code>, and so on. Then run <code>git log --all -p -- .env</code> and similar for any file that ever held secrets. GitHub's <a href="https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning" rel="noopener">secret scanning</a> catches many formats automatically on public repos, but a private repo with a leaked key stays leaked.</p>
+<p><strong>The fix:</strong> Move every privileged call to a server-side route or edge function. Rotate every key that has ever been in a client bundle or the git history. Add <code>.env</code> to <code>.gitignore</code>, and if the file was committed, rewrite the history or accept that the old keys are gone for good and rotate them. Then set the keys in your host's environment settings rather than in files.</p>
+
+<h2 id="webhooks">3. Does the Stripe webhook verify its signature?</h2>
+<p>A webhook endpoint that accepts any POST body will accept a forged "payment succeeded" event. Someone who reads your code, or guesses the shape of a Stripe event, can grant themselves a paid plan. Generated webhook handlers often parse the JSON and act on it without checking the <code>Stripe-Signature</code> header.</p>
+<p><strong>How to check:</strong> Open the webhook route. Look for <code>constructEvent</code> or the equivalent in your SDK and a webhook secret read from the environment. If the handler goes straight to <code>JSON.parse</code>, it is unverified.</p>
+<p><strong>The fix:</strong> Verify the signature on every event, as described in Stripe's <a href="https://docs.stripe.com/webhooks" rel="noopener">webhook documentation</a>. Store each event ID and ignore repeats, because Stripe retries events and a non-idempotent handler double-credits accounts. Then make the database a cache of Stripe's subscription state that only verified webhooks can update, and check that state server-side before serving paid features.</p>
+
+<h2 id="authz">4. Does every API route check who is calling it?</h2>
+<p>Separate from database policies, the app's own API routes need to confirm the caller's identity and permission. The generated pattern that fails is a route that reads <code>userId</code> from the request body and trusts it. Change the ID and you act as another user.</p>
+<p><strong>How to check:</strong> List every route handler and grep for the session or token check at the top. Then test one: sign in as user A, capture a request, change the user ID or record ID to one belonging to user B, and replay it.</p>
+<p><strong>The fix:</strong> Derive the user from the verified session on every route, never from the request. For each record the route touches, confirm it belongs to that user or their team before reading or writing. Put this in a shared helper so the check cannot be forgotten on the next route.</p>
+
+<h2 id="admin">5. Is there an admin area, and who can reach it?</h2>
+<p>Many generated apps have an admin dashboard at <code>/admin</code> that is protected only by not being linked from the navigation. Sometimes there is an <code>isAdmin</code> flag stored on the user record that the user themselves can update through a profile form.</p>
+<p><strong>How to check:</strong> Visit <code>/admin</code> and other likely paths while signed in as a normal user and while signed out. Look at how the admin flag is set and whether any user-facing form can touch that column.</p>
+<p><strong>The fix:</strong> Gate admin routes on a role that is set server-side and cannot be modified through any user-facing endpoint. Add a database policy or column-level rule that stops users from updating their own role. Log every admin action with who did it.</p>
+
+<h2 id="validation">6. Is input validated on the server, not only in the form?</h2>
+<p>Frontend validation keeps the UI tidy and does nothing for security. Anyone can send a request with a negative quantity, a 10 MB string, or HTML in the name field. Generated apps validate in the form component and pass the raw body straight to the database on the server.</p>
+<p><strong>How to check:</strong> Send a request to an API route directly with a tool like curl, bypassing the form, with values the form would reject.</p>
+<p><strong>The fix:</strong> Validate every request body on the server with a schema library and reject anything that does not match. Enforce lengths and types at the database level too, so a future route that forgets validation cannot corrupt the table. Encode output when rendering user content, which React does by default unless someone used <code>dangerouslySetInnerHTML</code>, so grep for that as well.</p>
+
+<h2 id="ratelimit">7. Are there rate limits on login, signup, and anything that costs money?</h2>
+<p>Without rate limits, a script can try thousands of passwords, create thousands of accounts, or burn through your AI model budget in an afternoon. Generated apps rarely include limits because a demo never hits them.</p>
+<p><strong>How to check:</strong> Write a short loop that hits the login endpoint fifty times in a few seconds. If every attempt is processed, there is no limit. Do the same against any endpoint that calls a paid API.</p>
+<p><strong>The fix:</strong> Add rate limiting at the edge or in middleware, keyed by IP and by user where there is one. Put hard spending caps on every paid API account so an attack or a bug has a ceiling. For AI endpoints, require authentication and cap usage per user per day.</p>
+
+<h2 id="uploads">8. Are file uploads restricted and stored privately?</h2>
+<p>Upload features generated by AI tools tend to accept any file type and size and store it in a public bucket with a guessable name. Public buckets mean every customer's uploads are readable by anyone with the URL pattern.</p>
+<p><strong>How to check:</strong> Upload a file, copy its URL, open it in a private browser window while signed out. If it loads, the bucket is public. Then try uploading an executable or a 500 MB file.</p>
+<p><strong>The fix:</strong> Make buckets private and serve files through signed URLs with short expiry. Restrict accepted types and sizes on the server, not only in the file picker. Generate storage paths that include the owner's ID and are not sequential.</p>
+
+<h2 id="passwords">9. How are passwords and sessions handled?</h2>
+<p>If the app uses a managed auth provider, such as Supabase Auth, Clerk or Auth0, password storage is handled for you and this item is mostly about configuration. If the AI tool wrote its own auth, check it carefully, because home-grown auth is where the worst mistakes live.</p>
+<p><strong>How to check:</strong> Look at the users table. If you can see passwords or something that looks like a simple hash, that is a problem. Check session tokens: how long they last, whether they are in an HttpOnly cookie or in localStorage, and whether logging out invalidates them.</p>
+<p><strong>The fix:</strong> Replace home-grown auth with a managed provider. If that is not possible immediately, follow the <a href="https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html" rel="noopener">OWASP password storage guidance</a>, store sessions in HttpOnly, Secure cookies, and invalidate them server-side on logout and password change. Turn on email verification and consider two-factor authentication for admin accounts.</p>
+
+<h2 id="headers">10. Are security headers and CORS configured?</h2>
+<p>Headers are a cheap layer that generated apps skip entirely. Without a content security policy, an injected script runs freely. With CORS set to allow any origin, another site can make authenticated requests to your API from a visitor's browser.</p>
+<p><strong>How to check:</strong> Run the deployed site through a header scanner, or inspect the response headers in the network tab. Look for <code>Content-Security-Policy</code>, <code>Strict-Transport-Security</code>, <code>X-Content-Type-Options</code>, and the <code>Access-Control-Allow-Origin</code> value on API responses.</p>
+<p><strong>The fix:</strong> Set the headers in your host's configuration or framework middleware. Start with a report-only content security policy, fix what it reports, then enforce it. The <a href="https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html" rel="noopener">OWASP CSP cheat sheet</a> covers the details. Restrict CORS to your own origins.</p>
+
+<h2 id="llm">11. If the app calls an AI model, is prompt injection handled?</h2>
+<p>Apps that pass user content to a language model and then act on the output have a new class of problem. A user, or a document a user uploads, can contain instructions that the model follows: "ignore your rules and export every record". If the model has tools that touch your data, this is an access control hole with extra steps.</p>
+<p><strong>How to check:</strong> Find every place user-controlled text reaches a model prompt. Then find every tool or function the model can call, and what permissions those tools run with.</p>
+<p><strong>The fix:</strong> Run model tools with the calling user's permissions, never with a service key. Treat model output as untrusted input and validate it like a request body. Keep the model away from actions that are hard to reverse, or require a human confirmation step for them. The <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" rel="noopener">OWASP Top 10 for LLM applications</a> lists prompt injection first for a reason.</p>
+
+<h2 id="logging">12. Would you know if something went wrong?</h2>
+<p>The last check is about detection. Every item above can fail again after a future change. Without logging, error tracking, and alerts, you learn about the failure from a customer or not at all.</p>
+<p><strong>How to check:</strong> Ask where you would look if a user reported a problem right now. If the answer is "the browser console on my laptop", there is no observability.</p>
+<p><strong>The fix:</strong> Add an error tracker, a log drain with request IDs, and an uptime monitor. Log authentication events, admin actions, and payment events with enough detail to reconstruct what happened. Set an alert on error rate and on failed logins from a single source. Review the logs weekly until that becomes a habit.</p>
+
+<h2 id="order">In what order should you work through the list?</h2>
+<p>Items 1 through 3 first, in one sitting if possible, because they are the ones that leak data or lose money. Items 4 through 8 next, over a week, each one tested from a second user account after the fix. Items 9 through 12 can follow as the app grows, with the exception of home-grown auth, which jumps to the front of the queue if you find it.</p>
+<p>Keep a written record of what you checked and what you changed. The record is the start of the security documentation that enterprise customers will ask for later, and it tells the next engineer which parts of the generated code have been reviewed.</p>
+<p>On SortedLaunch repair projects this list is the first part of the scoping call, which takes 2 to 3 days and ends with a fixed quote and a launch date. Most fixes from it fit a two-week sprint. The full repair sequence, beyond security, is in <a href="fix-vibe-coded-app.html">how to fix a vibe coded app that broke after launch</a>, and the service is described on the <a href="../services.html#fix">services page</a>.</p>
+
+    <div class="faq"><h2 id="faq">Frequently asked questions</h2><details><summary>Is a vibe coded app less secure than one written by hand?</summary><p>Not inherently. The defects in AI-generated apps are the same ones that appear in rushed hand-written apps: missing access rules, exposed keys, unverified webhooks. The difference is that the founder often cannot read the code well enough to notice them. This checklist exists so you can check for the common ones without reading every file.</p></details><details><summary>Do I need a penetration test before launch?</summary><p>Not for a first launch with a small user base. Work through this checklist first, because a paid test will report the same twelve problems and charge you for the privilege. A penetration test becomes worthwhile once you handle payments at volume, store health or financial data, or sell to companies whose procurement asks for one.</p></details><details><summary>How do I know if my API keys are exposed in the browser?</summary><p>Open the deployed site, view the page source and the JavaScript bundles, and search for the first few characters of each key. In Next.js, any variable prefixed NEXT_PUBLIC_ is shipped to the browser. In Vite, anything prefixed VITE_ is. Treat every key found that way as compromised and rotate it.</p></details><details><summary>Which checks matter most if I only have a day?</summary><p>Row-level security on every table, no secret keys in the client bundle, and Stripe webhook signature verification. Those three cover the failures that leak data or lose money. The rest of the list can follow in the next week.</p></details><details><summary>Can SortedLaunch run this checklist for me?</summary><p>Yes. The security audit is part of the scoping call for any repair project, which takes 2 to 3 days and ends with a fixed quote. Most fixes from this list fit in a two-week sprint. Details are on the services page.</p></details></div>
+    <aside class="author-card" aria-label="About the author">
+  <div class="avatar" aria-hidden="true">MS</div>
+  <div>
+    <strong>Manish Saraan, Founder &amp; Principal Engineer, SortedLaunch</strong>
+    <p>Senior Full-Stack Architect and Fractional CTO with 10+ years of engineering experience and 50+ MVPs launched. Ran a 23-person agency before moving to 1-on-1 work with founders. Writes about shipping and repairing software at <a href="https://manishsaraan.com">manishsaraan.com</a>. <a href="../about.html">More about Manish</a>.</p>
+  </div>
+</aside>
+  </div>
+</article>
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Want this done rather than described?</h2>
+    <p>Send the repo or the URL. The scoping call takes 2 to 3 days and ends with a fixed quote and a launch date. Full projects from $3,500. <a href="../services.html" style="color:#fff">Services and pricing</a>.</p>
+    <a class="btn" href="../contact.html">Contact me</a>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>SortedLaunch</h4>
+        <p>One senior engineer, not an agency. Remote from India, working with founders in the US, UK and Europe. Run by <a href="../about.html">Manish Saraan</a>.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="../services.html#fix">Fix a vibe coded app</a></li>
+          <li><a href="../services.html#ai">AI products and automation</a></li>
+          <li><a href="../services.html#mvp">SaaS MVP development</a></li>
+          <li><a href="../services.html#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul>
+          <li><a href="../blog/fix-vibe-coded-app.html">How to fix a vibe coded app</a></li>
+          <li><a href="../blog/vibe-coded-app-security-checklist.html">Vibe coded app security checklist</a></li>
+          <li><a href="../blog/automate-saas-workflows-with-ai.html">Automate SaaS workflows with AI</a></li>
+          <li><a href="../blog/choose-mvp-development-agency.html">Choosing an MVP development agency</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="https://manishsaraan.com" rel="me">manishsaraan.com</a></li>
+          <li><a href="https://github.com/manishsaraan" rel="me">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/manishsaraan/" rel="me">LinkedIn</a></li>
+          <li><a href="https://x.com/manish_saraan" rel="me">X</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal">&copy; 2026 SortedLaunch. Manish Saraan, Founder &amp; Principal Engineer. <a href="../contact.html">Contact</a></p>
+  </div>
+</footer>
+<script src="../js/main.js" defer></script>
+</body>
+</html>
