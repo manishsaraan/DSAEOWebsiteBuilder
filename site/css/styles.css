@@ -197,3 +197,5 @@ section { padding: 3.5rem 0; }
 .contact-grid { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; }
 .contact-grid .card + .card { margin-top: 1.25rem; }
 @media (max-width: 760px) { .contact-grid { grid-template-columns: 1fr; } }
+.mt-0 { margin-top: 0; }
+.cta-band a { color: #fff; }

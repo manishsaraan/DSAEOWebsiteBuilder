@@ -46,7 +46,16 @@
    "inLanguage": "en",
    "keywords": "fix vibe coded app",
    "articleSection": "Repair",
-   "wordCount": 2719
+   "wordCount": 2694
+  },
+  {
+   "@type": "Blog",
+   "@id": "https://sortedlaunch.com/blog/index.html#blog",
+   "url": "https://sortedlaunch.com/blog/index.html",
+   "name": "SortedLaunch blog",
+   "publisher": {
+    "@id": "https://sortedlaunch.com/#org"
+   }
   },
   {
    "@type": "Organization",
@@ -60,12 +69,9 @@
    "areaServed": [
     "US",
     "GB",
-    "EU",
-    "CA",
-    "AU"
+    "EU"
    ],
    "sameAs": [
-    "https://www.sortedlaunch.com/",
     "https://github.com/manishsaraan",
     "https://www.linkedin.com/in/manishsaraan/",
     "https://x.com/manish_saraan"
@@ -95,7 +101,7 @@
      "@type": "ListItem",
      "position": 1,
      "name": "Home",
-     "item": "https://sortedlaunch.com/index.html"
+     "item": "https://sortedlaunch.com/"
     },
     {
      "@type": "ListItem",
@@ -155,6 +161,12 @@
      }
     }
    ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://sortedlaunch.com/#website",
+   "url": "https://sortedlaunch.com/",
+   "name": "SortedLaunch"
   }
  ]
 }
@@ -176,15 +188,15 @@
 <article>
   <header class="article-header">
     <div class="wrap">
-      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="index.html">Blog</a></li><li>Repair</li></ol></nav>
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="index.html">Blog</a></li><li>How to fix a vibe coded app that broke after launch</li></ol></nav>
       <p class="eyebrow">Repair</p>
       <h1>How to fix a vibe coded app that broke after launch</h1>
       <p class="byline"><span>By <a href="../about.html" rel="author">Manish Saraan</a>, Founder &amp; Principal Engineer, SortedLaunch. 10+ years of engineering, 50+ MVPs launched.</span><span>Published <time datetime="2026-10-31">31 October 2026</time></span></p>
     </div>
   </header>
   <div class="article-body wrap">
-    <div class="answer-box"><p>To fix a vibe coded app, work from the most expensive failure to the least: back up the database and freeze deploys, inventory every external call, lock down data access and auth, make Stripe the source of truth for billing, add migrations, add error handling, then set up staging and backups. Most apps need targeted repair, not a rewrite. The audit takes 2 to 3 days and the repair usually fits a two-week sprint.</p></div>
-    <nav class="toc" aria-label="In this article"><strong>In this article</strong><ol><li><a href="#why">Why vibe coded apps break after launch</a></li><li><a href="#stop">Step 1: Backup and freeze deploys</a></li><li><a href="#inventory">Step 2: Inventory what you have</a></li><li><a href="#auth">Step 3: Data access and authentication</a></li><li><a href="#payments">Step 4: Payments</a></li><li><a href="#schema">Step 5: Schema and migrations</a></li><li><a href="#errors">Step 6: Error handling and logging</a></li><li><a href="#deploy">Step 7: Environments, deploys, backups</a></li><li><a href="#rewrite">Step 8: Rewrite or keep</a></li><li><a href="#time">How long it takes</a></li><li><a href="#hire">When to hire someone</a></li><li><a href="#faq">FAQ</a></li></ol></nav>
+    <div class="answer-box"><p>To fix a vibe coded app, work from the most expensive failure to the least: back up the database and freeze deploys, inventory every external call, lock down data access and auth, make Stripe the source of truth for billing, add migrations, add error handling, then set up staging and backups. Most apps need targeted repair, not a rewrite.</p></div>
+    <nav class="toc" aria-label="In this article"><strong>Contents</strong><ol><li><a href="#why">Why vibe coded apps break after launch</a></li><li><a href="#stop">Step 1: Backup and freeze deploys</a></li><li><a href="#inventory">Step 2: Inventory what you have</a></li><li><a href="#auth">Step 3: Data access and authentication</a></li><li><a href="#payments">Step 4: Payments</a></li><li><a href="#schema">Step 5: Schema and migrations</a></li><li><a href="#errors">Step 6: Error handling and logging</a></li><li><a href="#deploy">Step 7: Environments, deploys, backups</a></li><li><a href="#rewrite">Step 8: Rewrite or keep</a></li><li><a href="#time">How long it takes</a></li><li><a href="#hire">When to hire someone</a></li><li><a href="#faq">FAQ</a></li></ol></nav>
     
 <h2 id="why">Why do vibe coded apps break after launch?</h2>
 <p>Vibe coded apps break after launch because AI coding tools optimize for a working demo, and a demo has one user, no money, and no bad actors. The code that handled your own clicks in a test account was never asked to handle two users editing the same record, a Stripe webhook that arrives twice, or a request with a forged ID in the URL. Those cases arrive within days of real traffic.</p>
@@ -194,7 +206,7 @@
 <h2 id="stop">Step 1: Take a backup and freeze deployments</h2>
 <p>Before touching any code, take a full backup of the production database and store it somewhere that is not the same hosting account. On Supabase that is a dashboard export or <code>pg_dump</code> through the connection string. On a managed Postgres host it is a snapshot. On a hosted SQLite file it is a copy of the file. If the app stores uploads in a bucket, snapshot the bucket too.</p>
 <p>Then stop deploying. Most vibe coded apps deploy automatically on every push to the main branch, which is convenient during the build and dangerous during a repair. Turn off auto-deploy, or point production at a fixed commit. You want every change from here to go through a pull request that someone reads.</p>
-<p>If users are actively losing data or money right now, put up a maintenance page. A day of downtime is cheaper than a week of refunds. Founders resist this step, but no customer has ever churned over a maintenance page that said "back in a few hours", and several have churned over a duplicate charge.</p>
+<p>If users are actively losing data or money right now, put up a maintenance page. A day of downtime is cheaper than a week of refunds. Founders resist this step, but a maintenance page costs far less goodwill than a duplicate charge.</p>
 
 <h2 id="inventory">Step 2: Find out what you actually have</h2>
 <p>You cannot repair a system you cannot describe. Spend half a day building an inventory before writing any fix. The list I produce in a scoping call covers:</p>
@@ -209,7 +221,7 @@
 <p>Write the inventory down. If you later hire someone to do the repair, this document cuts the scoping time in half and the quote with it.</p>
 
 <h2 id="auth">Step 3: Fix data access and authentication first</h2>
-<p>Data access is first because it is the failure that cannot be undone. A double charge can be refunded. A leaked customer list cannot be unleaked. Broken access control sits at the top of the <a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/" rel="noopener">OWASP Top 10</a>, and in AI-generated apps it is the single most common problem I find.</p>
+<p>Data access is first because it is the failure that cannot be undone. A double charge can be refunded. A leaked customer list cannot be unleaked. Broken access control sits at the top of the <a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/" rel="noopener">OWASP Top 10</a>, and in AI-generated apps it is the problem I find most often.</p>
 <p>The typical shape is this: the app uses Supabase or Firebase from the browser, the tables were created with row-level security disabled or with a policy that allows everything, and the "security" is the fact that the UI does not show other users' records. Anyone who opens the browser console and runs a query gets the whole table. Supabase documents <a href="https://supabase.com/docs/guides/database/postgres/row-level-security" rel="noopener">row-level security</a> clearly, but the generated code rarely enables it, because enabling it makes the demo fail until policies are written.</p>
 <p>The fix, in order:</p>
 <ol>
@@ -238,7 +250,7 @@
 <p>Resist the urge to redesign. The schema does not need to be what you would have built. It needs to stop corrupting data and to be changeable next month.</p>
 
 <h2 id="errors">Step 6: Add error handling and logging where the AI forgot</h2>
-<p>AI-generated code treats external calls as if they cannot fail. The email sends. The model responds. The file uploads. When one of these fails in production, the generated code either crashes the request or, worse, continues as if it succeeded and tells the user everything is fine.</p>
+<p>AI-generated code treats external calls as if they cannot fail. It assumes the email sends, the model responds, and the file uploads. When one of these fails in production, the generated code either crashes the request or, worse, continues as if it succeeded and tells the user everything is fine.</p>
 <p>Go back to the inventory from Step 2 and visit every external call. For each one, decide what should happen on failure: retry, fall back, queue for later, or show the user an honest error. Then implement that, and log the failure with enough context to debug it. A log line that says "error" is useless. A log line that says "stripe.customers.create failed for user 4812 with card_declined" is a support ticket answered before it is filed.</p>
 <p>Set up a basic error tracker and a log drain. The free tiers of the common tools are enough for an app at this stage. For the first time you will be able to see errors you did not know you had, which is uncomfortable for a week and then becomes the way you run the product.</p>
 
@@ -257,7 +269,7 @@
 <h2 id="rewrite">Step 8: Decide what to rewrite and what to keep</h2>
 <p>After the first seven steps the app is safe to run. Now you can look at the code quality with a clear head rather than in a panic. Most of it should stay. Generated React components are verbose and repetitive, but they work, and rewriting them produces no customer-visible improvement.</p>
 <p>Rewrite the parts that fail one of two tests. The first test is whether a change in that area breaks something unrelated more often than not. That is the sign of logic that is duplicated across files, and it is cheaper to consolidate than to keep patching copies. The second test is whether the area blocks a feature you need in the next quarter. If the data model cannot represent teams and you need teams, the data model gets rebuilt now, while the app is small.</p>
-<p>Everything else goes on a list with a rough cost, and the list waits until the business asks for it. The goal of a repair is a product you can keep shipping, not a codebase you are proud of.</p>
+<p>Everything else goes on a list with a rough cost, and the list waits until the business asks for it. A repair should leave you with a product you can keep shipping. Code you are proud of can come later.</p>
 
 <h2 id="time">How long does fixing a vibe coded app take?</h2>
 <p>For an app with a few hundred users and a simple billing model, the audit takes 2 to 3 days and the repair fits in a two-week sprint. For apps with multi-tenant data, a mobile client, or a marketplace with payouts, the repair runs the full four-week build. On every SortedLaunch project the scoping call produces a fixed quote and a launch date before work starts, with a demo every Friday during the build and two weeks of post-launch fixes included. Pricing starts at $3,500 for a full project, with ongoing support at $3,000 per month that can be paused or cancelled. Details are on the <a href="../services.html#fix">services page</a>.</p>
@@ -281,7 +293,7 @@
 <section class="cta-band">
   <div class="wrap">
     <h2>Want this done rather than described?</h2>
-    <p>Send the repo or the URL. The scoping call takes 2 to 3 days and ends with a fixed quote and a launch date. Full projects from $3,500. <a href="../services.html" style="color:#fff">Services and pricing</a>.</p>
+    <p>Send the repo or the URL. The scoping call takes 2 to 3 days and ends with a fixed quote and a launch date. Full projects from $3,500. <a href="../services.html">Services and pricing</a>.</p>
     <a class="btn" href="../contact.html">Contact me</a>
   </div>
 </section>

@@ -46,7 +46,16 @@
    "inLanguage": "en",
    "keywords": "vibe coded app security",
    "articleSection": "Security",
-   "wordCount": 2527
+   "wordCount": 2515
+  },
+  {
+   "@type": "Blog",
+   "@id": "https://sortedlaunch.com/blog/index.html#blog",
+   "url": "https://sortedlaunch.com/blog/index.html",
+   "name": "SortedLaunch blog",
+   "publisher": {
+    "@id": "https://sortedlaunch.com/#org"
+   }
   },
   {
    "@type": "Organization",
@@ -60,12 +69,9 @@
    "areaServed": [
     "US",
     "GB",
-    "EU",
-    "CA",
-    "AU"
+    "EU"
    ],
    "sameAs": [
-    "https://www.sortedlaunch.com/",
     "https://github.com/manishsaraan",
     "https://www.linkedin.com/in/manishsaraan/",
     "https://x.com/manish_saraan"
@@ -95,7 +101,7 @@
      "@type": "ListItem",
      "position": 1,
      "name": "Home",
-     "item": "https://sortedlaunch.com/index.html"
+     "item": "https://sortedlaunch.com/"
     },
     {
      "@type": "ListItem",
@@ -127,7 +133,7 @@
      "name": "Do I need a penetration test before launch?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Not for a first launch with a small user base. Work through this checklist first, because a paid test will report the same twelve problems and charge you for the privilege. A penetration test becomes worthwhile once you handle payments at volume, store health or financial data, or sell to companies whose procurement asks for one."
+      "text": "Not for a first launch with a small user base. Work through this checklist first, because a paid test will mostly report the same twelve problems. A penetration test becomes worthwhile once you handle payments at volume, store health or financial data, or sell to companies whose procurement asks for one."
      }
     },
     {
@@ -155,6 +161,12 @@
      }
     }
    ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://sortedlaunch.com/#website",
+   "url": "https://sortedlaunch.com/",
+   "name": "SortedLaunch"
   }
  ]
 }
@@ -176,15 +188,15 @@
 <article>
   <header class="article-header">
     <div class="wrap">
-      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="index.html">Blog</a></li><li>Security</li></ol></nav>
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="index.html">Blog</a></li><li>Vibe coded app security checklist before you take real users</li></ol></nav>
       <p class="eyebrow">Security</p>
       <h1>Vibe coded app security checklist before you take real users</h1>
       <p class="byline"><span>By <a href="../about.html" rel="author">Manish Saraan</a>, Founder &amp; Principal Engineer, SortedLaunch. 10+ years of engineering, 50+ MVPs launched.</span><span>Published <time datetime="2026-10-31">31 October 2026</time></span></p>
     </div>
   </header>
   <div class="article-body wrap">
-    <div class="answer-box"><p>A vibe coded app security checklist should start with the three failures that leak data or money: row-level security on every table, no secret keys in the browser bundle or git history, and Stripe webhook signature verification. The remaining nine checks cover route authorization, admin access, server-side validation, rate limits, uploads, passwords, headers, prompt injection, and logging. Each takes under an hour to verify.</p></div>
-    <nav class="toc" aria-label="In this article"><strong>In this article</strong><ol><li><a href="#why">Why a separate checklist</a></li><li><a href="#rls">1. Row-level security</a></li><li><a href="#secrets">2. Secrets in the bundle</a></li><li><a href="#webhooks">3. Stripe webhook signatures</a></li><li><a href="#authz">4. Route authorization</a></li><li><a href="#admin">5. Admin access</a></li><li><a href="#validation">6. Server-side validation</a></li><li><a href="#ratelimit">7. Rate limits</a></li><li><a href="#uploads">8. File uploads</a></li><li><a href="#passwords">9. Passwords and sessions</a></li><li><a href="#headers">10. Headers and CORS</a></li><li><a href="#llm">11. Prompt injection</a></li><li><a href="#logging">12. Logging and alerts</a></li><li><a href="#order">Order of work</a></li><li><a href="#faq">FAQ</a></li></ol></nav>
+    <div class="answer-box"><p>A vibe coded app security checklist should start with the three failures that leak data or money: row-level security on every table, no secret keys in the browser bundle or git history, and Stripe webhook signature verification. The remaining nine checks cover route authorization, admin access, server-side validation, rate limits, uploads, passwords, headers, prompt injection, and logging.</p></div>
+    <nav class="toc" aria-label="In this article"><strong>Contents</strong><ol><li><a href="#why">Why a separate checklist</a></li><li><a href="#rls">1. Row-level security</a></li><li><a href="#secrets">2. Secrets in the bundle</a></li><li><a href="#webhooks">3. Stripe webhook signatures</a></li><li><a href="#authz">4. Route authorization</a></li><li><a href="#admin">5. Admin access</a></li><li><a href="#validation">6. Server-side validation</a></li><li><a href="#ratelimit">7. Rate limits</a></li><li><a href="#uploads">8. File uploads</a></li><li><a href="#passwords">9. Passwords and sessions</a></li><li><a href="#headers">10. Headers and CORS</a></li><li><a href="#llm">11. Prompt injection</a></li><li><a href="#logging">12. Logging and alerts</a></li><li><a href="#order">Order of work</a></li><li><a href="#faq">FAQ</a></li></ol></nav>
     
 <h2 id="why">Why does a vibe coded app need its own security checklist?</h2>
 <p>Standard security guidance assumes a developer wrote the code and understands it. A vibe coded app, built by prompting Cursor, Lovable, Bolt, v0 or Replit, has a different failure profile. The founder knows what the app does but not how, the AI tool favored a working demo over safe defaults, and nobody has read the whole codebase. The problems are predictable, and that makes them checkable.</p>
@@ -256,7 +268,7 @@
 <p>Keep a written record of what you checked and what you changed. The record is the start of the security documentation that enterprise customers will ask for later, and it tells the next engineer which parts of the generated code have been reviewed.</p>
 <p>On SortedLaunch repair projects this list is the first part of the scoping call, which takes 2 to 3 days and ends with a fixed quote and a launch date. Most fixes from it fit a two-week sprint. The full repair sequence, beyond security, is in <a href="fix-vibe-coded-app.html">how to fix a vibe coded app that broke after launch</a>, and the service is described on the <a href="../services.html#fix">services page</a>.</p>
 
-    <div class="faq"><h2 id="faq">Frequently asked questions</h2><details><summary>Is a vibe coded app less secure than one written by hand?</summary><p>Not inherently. The defects in AI-generated apps are the same ones that appear in rushed hand-written apps: missing access rules, exposed keys, unverified webhooks. The difference is that the founder often cannot read the code well enough to notice them. This checklist exists so you can check for the common ones without reading every file.</p></details><details><summary>Do I need a penetration test before launch?</summary><p>Not for a first launch with a small user base. Work through this checklist first, because a paid test will report the same twelve problems and charge you for the privilege. A penetration test becomes worthwhile once you handle payments at volume, store health or financial data, or sell to companies whose procurement asks for one.</p></details><details><summary>How do I know if my API keys are exposed in the browser?</summary><p>Open the deployed site, view the page source and the JavaScript bundles, and search for the first few characters of each key. In Next.js, any variable prefixed NEXT_PUBLIC_ is shipped to the browser. In Vite, anything prefixed VITE_ is. Treat every key found that way as compromised and rotate it.</p></details><details><summary>Which checks matter most if I only have a day?</summary><p>Row-level security on every table, no secret keys in the client bundle, and Stripe webhook signature verification. Those three cover the failures that leak data or lose money. The rest of the list can follow in the next week.</p></details><details><summary>Can SortedLaunch run this checklist for me?</summary><p>Yes. The security audit is part of the scoping call for any repair project, which takes 2 to 3 days and ends with a fixed quote. Most fixes from this list fit in a two-week sprint. Details are on the services page.</p></details></div>
+    <div class="faq"><h2 id="faq">Frequently asked questions</h2><details><summary>Is a vibe coded app less secure than one written by hand?</summary><p>Not inherently. The defects in AI-generated apps are the same ones that appear in rushed hand-written apps: missing access rules, exposed keys, unverified webhooks. The difference is that the founder often cannot read the code well enough to notice them. This checklist exists so you can check for the common ones without reading every file.</p></details><details><summary>Do I need a penetration test before launch?</summary><p>Not for a first launch with a small user base. Work through this checklist first, because a paid test will mostly report the same twelve problems. A penetration test becomes worthwhile once you handle payments at volume, store health or financial data, or sell to companies whose procurement asks for one.</p></details><details><summary>How do I know if my API keys are exposed in the browser?</summary><p>Open the deployed site, view the page source and the JavaScript bundles, and search for the first few characters of each key. In Next.js, any variable prefixed NEXT_PUBLIC_ is shipped to the browser. In Vite, anything prefixed VITE_ is. Treat every key found that way as compromised and rotate it.</p></details><details><summary>Which checks matter most if I only have a day?</summary><p>Row-level security on every table, no secret keys in the client bundle, and Stripe webhook signature verification. Those three cover the failures that leak data or lose money. The rest of the list can follow in the next week.</p></details><details><summary>Can SortedLaunch run this checklist for me?</summary><p>Yes. The security audit is part of the scoping call for any repair project, which takes 2 to 3 days and ends with a fixed quote. Most fixes from this list fit in a two-week sprint. Details are on the services page.</p></details></div>
     <aside class="author-card" aria-label="About the author">
   <div class="avatar" aria-hidden="true">MS</div>
   <div>
@@ -269,7 +281,7 @@
 <section class="cta-band">
   <div class="wrap">
     <h2>Want this done rather than described?</h2>
-    <p>Send the repo or the URL. The scoping call takes 2 to 3 days and ends with a fixed quote and a launch date. Full projects from $3,500. <a href="../services.html" style="color:#fff">Services and pricing</a>.</p>
+    <p>Send the repo or the URL. The scoping call takes 2 to 3 days and ends with a fixed quote and a launch date. Full projects from $3,500. <a href="../services.html">Services and pricing</a>.</p>
     <a class="btn" href="../contact.html">Contact me</a>
   </div>
 </section>
