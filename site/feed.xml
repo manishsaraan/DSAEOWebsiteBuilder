@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>SortedLaunch blog</title>
+  <link>https://sortedlaunch.com/blog/index.html</link>
+  <atom:link href="https://sortedlaunch.com/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Guides on fixing vibe coded apps and automating SaaS workflows with AI, by Manish Saraan.</description>
+  <language>en</language>
+  <item>
+    <title>How to automate SaaS workflows with AI without breaking operations</title>
+    <link>https://sortedlaunch.com/blog/automate-saas-workflows-with-ai.html</link>
+    <guid>https://sortedlaunch.com/blog/automate-saas-workflows-with-ai.html</guid>
+    <description>How to automate SaaS workflows with AI: which workflows to pick, evaluation sets, pipeline design, guardrails, launch. From a pipeline that cut work 75%.</description>
+    <pubDate>Sat, 31 Oct 2026 00:00:00 GMT</pubDate>
+    <author>Manish Saraan</author>
+  </item>
+  <item>
+    <title>How to choose an MVP development agency for your startup</title>
+    <link>https://sortedlaunch.com/blog/choose-mvp-development-agency.html</link>
+    <guid>https://sortedlaunch.com/blog/choose-mvp-development-agency.html</guid>
+    <description>How to choose an MVP development agency for your startup: questions on scope, price, demos, ownership and handover that show whether a studio ships.</description>
+    <pubDate>Sat, 31 Oct 2026 00:00:00 GMT</pubDate>
+    <author>Manish Saraan</author>
+  </item>
+  <item>
+    <title>How to fix a vibe coded app that broke after launch</title>
+    <link>https://sortedlaunch.com/blog/fix-vibe-coded-app.html</link>
+    <guid>https://sortedlaunch.com/blog/fix-vibe-coded-app.html</guid>
+    <description>A step-by-step order for fixing a vibe coded app built with Cursor, Lovable or Bolt: backups, data access, Stripe, schema, deploys. By Manish Saraan.</description>
+    <pubDate>Sat, 31 Oct 2026 00:00:00 GMT</pubDate>
+    <author>Manish Saraan</author>
+  </item>
+  <item>
+    <title>Vibe coded app security checklist before you take real users</title>
+    <link>https://sortedlaunch.com/blog/vibe-coded-app-security-checklist.html</link>
+    <guid>https://sortedlaunch.com/blog/vibe-coded-app-security-checklist.html</guid>
+    <description>A vibe coded app security checklist from real repair audits: row-level security, exposed keys, Stripe webhooks, rate limits, with the fix for each.</description>
+    <pubDate>Sat, 31 Oct 2026 00:00:00 GMT</pubDate>
+    <author>Manish Saraan</author>
+  </item>
+</channel>
+</rss>
