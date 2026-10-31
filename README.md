@@ -12,6 +12,10 @@ https://rishi.store/hostinger
 
 Use coupon code `SORAVJAIN` for an extra 10% off.
 
+## Next.js edition
+
+If you deploy on Vercel instead of Hostinger, use the standalone project in [`nextjs-ai-agent/`](nextjs-ai-agent/README.md). It carries the same onboarding, content and review skills, but the skills fill a typed `content/` layer that a Next.js App Router engine renders, with per-page JSON-LD, generated share images, sitemap, RSS and a Resend-backed contact form. Copy that folder out (or open it as its own project in Claude Code) and follow its README.
+
 ## Quick Start
 
 1. Download or clone this repository.
